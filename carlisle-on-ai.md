@@ -50,9 +50,9 @@ This is clear: *at a minimum*, we should use AI models *extensively* for error-c
 ::: aside
 **Real examples of errors.** 
 
-*Example 1*: A paper describes a prior distribution as "N(0, 2)." From context, "2" refers to a variance. The Stan model uses `normal(0, 2)`, and Stan treats `2` as a standard deviation.  
+- *Example 1*: A paper describes a prior distribution as "N(0, 2)." From context, "2" refers to a variance. The Stan model uses `normal(0, 2)`, and Stan treats `2` as a standard deviation.  
 
-*Example 2:* A paper describes an complex algorithm implemented in C++. A subtle but important difference exists between the algorithm described in the paper and the algorithm implemented by the C++ code. 
+- *Example 2:* A paper describes an complex algorithm implemented in C++. A subtle but important difference exists between the algorithm described in the paper and the algorithm implemented by the C++ code. 
 
 While these errors are nearly impossible for a human to detect, an AI model will discover them almost always.
 :::

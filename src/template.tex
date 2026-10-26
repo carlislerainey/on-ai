@@ -1,6 +1,6 @@
 % template.tex -- pandoc template: the preamble of template-sidenotes.tex
 % (notes in the margin), filled from the .md by `make` (see Makefile).
-\documentclass[12pt, letterpaper]{article}
+\documentclass[11pt, letterpaper]{article}
 
 % ============================================================================
 % SETTINGS (change per paper)
@@ -9,7 +9,7 @@
 \newif\ifanonymous   \anonymousfalse  % true: hide authors and notes for review
 \newif\iftitlepage   \titlepagefalse  % false: abstract and text start on page 1
 \newif\ifcomments    \commentstrue    % false: hide \ctk{...} drafting notes
-\newcommand{\bodyspacing}{\doublespacing}  % or \onehalfspacing, \singlespacing
+\newcommand{\bodyspacing}{\setstretch{1.15}}  % or \doublespacing, \onehalfspacing, \singlespacing
 
 % ============================================================================
 % FORMATTING (the same for every paper)
@@ -52,8 +52,8 @@
 \makeatletter\let\openbox\@undefined\makeatother
 
 % ---- Paragraphs and lists ---------------------------------------------------
-\setlength{\parindent}{0.4in}
-\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}  % paragraphs: no indent, a half line between
+\setlength{\parskip}{0.5\baselineskip plus 2pt}
 \usepackage{enumitem}
 \setlist{nosep, leftmargin=*, labelindent=\parindent}
 
@@ -246,6 +246,7 @@
   \begingroup
     \singlespacing
     \RaggedRight
+    \setlength{\parskip}{0pt}%
     \iftitlepage\vspace*{0.6in}\else\vspace*{-0.2in}\fi
     \begin{fullwidth}\RaggedRight
     {\headingfont\huge\@title
@@ -256,10 +257,10 @@
       \vspace{1.2ex}{\sfweight{light}\Large\rp@subtitle\par}%
     \fi
     \end{fullwidth}
-    \vspace{0.45in}%
+    \vspace{0.2in}%
     \ifanonymous\else
       \rp@authors
-      \vspace{0.35in}%
+      \vspace{0.12in}%
     \fi
     {\sfweight{light}\@date\par}%
     \ifanonymous\else
@@ -267,7 +268,7 @@
         \vspace{1ex}{\small\rp@versionnote\par}%
       \fi
     \fi
-    \vspace{0.35in}%
+    \vspace{0.2in}%
   \endgroup
   \setcounter{footnote}{0}%
   \iftitlepage\else\bodyspacing\fi}
