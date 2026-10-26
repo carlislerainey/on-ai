@@ -1,0 +1,12 @@
+# Title-page fields. The title is the .md's `#` heading.
+# Optional: subtitle, titlenote, date (default \today), versionnote,
+# keywords (a list), abstract.
+# To cite with [@key] (-> \citep) and @key (-> \citet), add a .bib file to
+# the project folder and list it here:
+#   bibliography: references.bib
+authors:
+  - name: Carlisle Rainey
+    note: >-
+      Carlisle Rainey is Associate Professor of Political Science, Florida
+      State University, 540 Bellamy, Tallahassee, FL 32306
+      (\email{crainey@fsu.edu}).

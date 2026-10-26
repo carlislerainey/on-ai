@@ -1,0 +1,351 @@
+% template.tex -- pandoc template: the preamble of template-sidenotes.tex
+% (notes in the margin), filled from the .md by `make` (see Makefile).
+\documentclass[12pt, letterpaper]{article}
+
+% ============================================================================
+% SETTINGS (change per paper)
+% ============================================================================
+
+\newif\ifanonymous   \anonymousfalse  % true: hide authors and notes for review
+\newif\iftitlepage   \titlepagefalse  % false: abstract and text start on page 1
+\newif\ifcomments    \commentstrue    % false: hide \ctk{...} drafting notes
+\newcommand{\bodyspacing}{\doublespacing}  % or \onehalfspacing, \singlespacing
+
+% ============================================================================
+% FORMATTING (the same for every paper)
+% ============================================================================
+
+% ---- Page -------------------------------------------------------------------
+% A 4.6in text column (60-65 characters a line) and a 1.9in margin column
+% for notes on the right.
+\usepackage[letterpaper, top=1in, bottom=1in, left=1in, right=2.9in,
+  marginparsep=0.3in, marginparwidth=1.9in, footskip=0.5in]{geometry}
+\usepackage{setspace}
+\usepackage{amsmath}
+\pagestyle{plain}
+
+% ---- Fonts ------------------------------------------------------------------
+% Serif (text and math): Charter. Sans (title, headings, captions): Fira
+% Sans. Mono (code): Fira Mono. Fira is scaled to Charter's x-height.
+% newtxmath supplies the AMS symbols; do not load amssymb or amsfonts.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[sups]{XCharter}
+\usepackage[xcharter, vvarbb]{newtxmath}
+\usepackage[scale=0.86, lf]{FiraSans}
+\usepackage[scale=0.84, lf]{FiraMono}
+% Other serifs (replace the XCharter and newtxmath lines; adjust the Fira
+% scales as noted):
+%   Palatino:  \usepackage{newpxtext}\usepackage[vvarbb]{newpxmath}       (0.84, 0.82)
+%   Cochineal: \usepackage[proportional, lining]{cochineal}
+%              \usepackage[cochineal, vvarbb]{newtxmath}                  (0.82, 0.80)
+%   Times:     \usepackage{newtxtext}\usepackage[vvarbb]{newtxmath}       (0.84, 0.82)
+\usepackage[final]{microtype}
+
+% Sans at any weight: {\sfweight{extralight} text}. Fira Sans weights: thin,
+% ultralight, extralight, light, book, regular, medium, semibold, bold,
+% extrabold, heavy.
+\newcommand{\sfweight}[1]{\sffamily\fontseries{#1}\selectfont}
+\newcommand{\headingfont}{\sfweight{semibold}}  % title, sections, captions
+
+% newtxmath defines \openbox, which amsthm also defines; let amsthm win.
+\makeatletter\let\openbox\@undefined\makeatother
+
+% ---- Paragraphs and lists ---------------------------------------------------
+\setlength{\parindent}{0.4in}
+\setlength{\parskip}{0pt}
+\usepackage{enumitem}
+\setlist{nosep, leftmargin=*, labelindent=\parindent}
+
+% ---- Headings ---------------------------------------------------------------
+\usepackage{titlesec}
+\titleformat{\section}{\headingfont\Large}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\sfweight{medium}\large}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}{\sfweight{medium}\itshape\normalsize}{\thesubsubsection}{0.7em}{}
+\titleformat{\paragraph}[runin]{\headingfont\normalsize}{\theparagraph}{0.7em}{}[.]
+\titlespacing*{\section}{0pt}{2.6ex plus 1ex minus .2ex}{1ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{2ex plus 1ex minus .2ex}{0.6ex plus .2ex}
+\titlespacing*{\subsubsection}{0pt}{1.5ex plus 1ex minus .2ex}{0.3ex plus .2ex}
+\titlespacing*{\paragraph}{0pt}{1ex plus .5ex minus .2ex}{0.6em}
+\setcounter{secnumdepth}{0}  % unnumbered sections; 3 to number them
+
+% ---- Figures and tables -----------------------------------------------------
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{threeparttable}
+\usepackage{caption}
+\DeclareCaptionFont{heading}{\headingfont}
+\captionsetup{labelfont=heading, font=small, labelsep=period,
+  justification=justified, singlelinecheck=true, skip=6pt}
+\captionsetup[table]{position=top}
+\usepackage{subcaption}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.7}
+
+% Text, figures, or tables that extend across the margin column:
+%   \begin{figure}\begin{fullwidth} ... \end{fullwidth}\end{figure}
+\usepackage{changepage}
+\newenvironment{fullwidth}
+  {\begin{adjustwidth}{0pt}{-\dimexpr\marginparwidth+\marginparsep\relax}}
+  {\end{adjustwidth}}
+
+% Notes under a table or figure:  \floatnote{Standard errors in parentheses.}
+\newcommand{\floatnote}[1]{%
+  \par\vspace{0.6ex}%
+  {\footnotesize\raggedright\textit{Note:} #1\par}}
+
+% ---- Margin notes -----------------------------------------------------------
+% \footnote{...} becomes a numbered note in the margin, beside the line that
+% cites it; \aside{...} is an unnumbered one. Notes are single spaced, stack
+% without overlapping, and move to the next page when a page's margin is
+% full (marginfix). They cannot go inside floats, tables, or minipages.
+% Title-page notes (\titlenote, \addauthor) stay at the foot of the page.
+\usepackage{marginfix}
+\usepackage{ragged2e}
+\setlength{\marginparpush}{0.8\baselineskip}
+\newcommand{\marginnotestyle}{\setstretch{1}\footnotesize\RaggedRight}
+\newcounter{sidenote}
+\let\pagefootnote\footnote
+\renewcommand{\footnote}[1]{%
+  \refstepcounter{sidenote}%
+  \textsu{\thesidenote}%
+  \marginpar{\marginnotestyle\textsu{\thesidenote}\,#1}}
+\newcommand{\aside}[1]{\marginpar{\marginnotestyle #1}}
+
+% Ordinary footnotes, used only on the title page.
+\usepackage[hang, flushmargin]{footmisc}
+\setlength{\footnotemargin}{0.8em}
+\setlength{\skip\footins}{1.5\baselineskip plus 4pt minus 2pt}
+\setlength{\footnotesep}{0.8\baselineskip}
+
+% ---- Code: single spaced whatever the body spacing --------------------------
+% (and \small, so about 75 characters fit the narrow text column)
+\AddToHook{env/verbatim/begin}{\par\singlespacing\small}
+\makeatletter
+\AtBeginDocument{%
+  \@ifpackageloaded{fancyvrb}{\fvset{baselinestretch=1}}{}%  % also Pandoc's Shaded
+  \@ifpackageloaded{listings}{\lstset{basicstyle=\linespread{1}\ttfamily}}{}}
+\makeatother
+
+% ---- Links ------------------------------------------------------------------
+\usepackage{xcolor}
+\definecolor{linkblue}{RGB}{0, 69, 134}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=black, citecolor=black,
+  filecolor=linkblue, urlcolor=linkblue, pdfnewwindow=true,
+  bookmarksnumbered=true}
+\urlstyle{same}
+
+% ---- Citations and references (APSA) -----------------------------------------
+% (Rainey 2014, 12; Ahler and Sood 2018): no comma between author and year;
+% `sort` puts multiple works in reference-list (alphabetical) order.
+\usepackage[sort]{natbib}
+\bibpunct[, ]{(}{)}{;}{a}{}{,}
+\bibliographystyle{apsa}
+\setlength{\bibhang}{0.35in}
+\setlength{\bibsep}{0.55\baselineskip plus 0.2\baselineskip}
+\renewcommand{\bibfont}{\singlespacing}
+% Double-spaced references instead:
+% \setlength{\bibsep}{0pt}\renewcommand{\bibfont}{\doublespacing}
+% DOIs of published works print as "doi: 10.xxxx" (APSA). Alternatives:
+% \newcommand{\apsadoi}[1]{\url{https://doi.org/#1}}  % https://doi.org/10.xxxx
+% \newcommand{\apsapubdoi}[1]{}                       % omit (preprints keep theirs)
+
+% ---- Appendix and supplement ------------------------------------------------
+% \appendix: sections become A, B, ...; figures, tables, and equations
+% become A1, A2, ... within each section.
+\renewcommand{\appendix}{%
+  \par
+  \setcounter{section}{0}%
+  \setcounter{secnumdepth}{3}%
+  \renewcommand{\thesection}{\Alph{section}}%
+  \counterwithin*{figure}{section}%
+  \counterwithin*{table}{section}%
+  \counterwithin*{equation}{section}%
+  \renewcommand{\thefigure}{\thesection\arabic{figure}}%
+  \renewcommand{\thetable}{\thesection\arabic{table}}%
+  \renewcommand{\theequation}{\thesection\arabic{equation}}}
+
+% \supplement: for a stand-alone supplementary file. Pages, sections,
+% figures, tables, and equations are numbered S1, S2, ...
+\newcommand{\supplement}{%
+  \renewcommand{\thepage}{S\arabic{page}}%
+  \renewcommand{\thesection}{S\arabic{section}}%
+  \renewcommand{\thefigure}{S\arabic{figure}}%
+  \renewcommand{\thetable}{S\arabic{table}}%
+  \renewcommand{\theequation}{S\arabic{equation}}%
+  \setcounter{secnumdepth}{3}}
+
+% ---- Drafting aids ----------------------------------------------------------
+% \ctk{...} prints a red, bracketed note (hidden when \commentsfalse).
+\ifcomments
+  \newcommand{\ctk}[1]{{\color{red}[#1]}}
+\else
+  \newcommand{\ctk}[1]{\ignorespaces}
+\fi
+% Line numbers for review:
+% \usepackage[pagewise]{lineno}\linenumbers
+
+% ---- Title page -------------------------------------------------------------
+%   \title{}  \subtitle{}  \titlenote{}  \addauthor[affiliation]{Name}{note}
+%   \date{}   \versionnote{}  \keywords{}  \wordcount{}
+% The abstract environment ends the title page; the text starts on page 1.
+\makeatletter
+\newcommand{\rp@authors}{}
+\newcommand{\rp@pdfauthors}{}
+% Unset fields must be \@empty (not \long) so the \ifx tests below see them.
+\let\rp@subtitle\@empty
+\let\rp@titlenote\@empty
+\let\rp@versionnote\@empty
+\let\rp@keywords\@empty
+\let\rp@wordcount\@empty
+\newcommand{\subtitle}[1]{\def\rp@subtitle{#1}}
+\newcommand{\titlenote}[1]{\def\rp@titlenote{#1}}
+\newcommand{\versionnote}[1]{\def\rp@versionnote{#1}}
+\newcommand{\keywords}[1]{\def\rp@keywords{#1}}
+\newcommand{\wordcount}[1]{\def\rp@wordcount{#1}}
+\newcommand{\email}[1]{\href{mailto:#1}{#1}}
+
+\newcounter{rp@nauthors}
+% \addauthor[line under the name]{Name}{footnote text}
+\newcommand{\addauthor}[3][]{%
+  \stepcounter{rp@nauthors}%
+  \ifnum\value{rp@nauthors}=1
+    \g@addto@macro\rp@pdfauthors{#2}%
+  \else
+    \g@addto@macro\rp@pdfauthors{, #2}%
+  \fi
+  \g@addto@macro\rp@authors{\rp@oneauthor{#1}{#2}{#3}}}
+\newcommand{\rp@oneauthor}[3]{%
+  \par\vspace{0.9ex}%
+  {\sfweight{regular}\large #2}%
+  \if\relax\detokenize{#3}\relax\else\rp@symbolnote{#3}\fi
+  \if\relax\detokenize{#1}\relax\else\par{\sfweight{light}\small #1}\fi
+  \par}
+
+% Footnote marked *, dagger, ... that does not disturb the main counter.
+\newcounter{rp@symbol}
+\newcommand{\rp@symbolnote}[1]{%
+  \stepcounter{rp@symbol}%
+  \begingroup
+    \renewcommand{\thefootnote}{\fnsymbol{footnote}}%
+    \setcounter{footnote}{\value{rp@symbol}}%
+    \addtocounter{footnote}{-1}%
+    \pagefootnote{#1}%
+  \endgroup}
+
+\renewcommand{\maketitle}{%
+  \hypersetup{pdftitle={\@title}}%
+  \ifanonymous\else\hypersetup{pdfauthor={\rp@pdfauthors}}\fi
+  \iftitlepage\thispagestyle{empty}\fi
+  \begingroup
+    \singlespacing
+    \RaggedRight
+    \iftitlepage\vspace*{0.6in}\else\vspace*{-0.2in}\fi
+    \begin{fullwidth}\RaggedRight
+    {\headingfont\huge\@title
+      \ifanonymous\else
+        \ifx\rp@titlenote\@empty\else\rp@symbolnote{\rp@titlenote}\fi
+      \fi\par}%
+    \ifx\rp@subtitle\@empty\else
+      \vspace{1.2ex}{\sfweight{light}\Large\rp@subtitle\par}%
+    \fi
+    \end{fullwidth}
+    \vspace{0.45in}%
+    \ifanonymous\else
+      \rp@authors
+      \vspace{0.35in}%
+    \fi
+    {\sfweight{light}\@date\par}%
+    \ifanonymous\else
+      \ifx\rp@versionnote\@empty\else
+        \vspace{1ex}{\small\rp@versionnote\par}%
+      \fi
+    \fi
+    \vspace{0.35in}%
+  \endgroup
+  \setcounter{footnote}{0}%
+  \iftitlepage\else\bodyspacing\fi}
+
+\renewenvironment{abstract}{%
+  \begingroup
+  \iftitlepage\singlespacing\fi
+  \noindent{\headingfont\normalsize Abstract\par}\vspace{0.8ex}%
+  \list{}{\leftmargin=0pt \rightmargin=0pt}\item\relax
+  \setstretch{1.15}\noindent\ignorespaces}{%
+  \endlist
+  \ifx\rp@keywords\@empty\else
+    \par\vspace{1.5ex}{\RaggedRight\small
+      {\headingfont Keywords:} \rp@keywords\par}%
+  \fi
+  \ifx\rp@wordcount\@empty\else
+    \par\vspace{1ex}{\RaggedRight\small Word count: \rp@wordcount\par}%
+  \fi
+  \endgroup
+  \iftitlepage
+    \clearpage
+    \setcounter{page}{1}%
+    \bodyspacing
+  \else
+    \par\vspace{2ex}%
+  \fi}
+\makeatother
+
+% Text without a \maketitle starts in body spacing.
+\AtBeginDocument{\bodyspacing}
+
+
+% ---- Pandoc output ----------------------------------------------------------
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+% ============================================================================
+% THIS PAPER (from metadata.yaml and the .md)
+% ============================================================================
+
+\title{$title$}
+$if(subtitle)$
+\subtitle{$subtitle$}
+$endif$
+$if(titlenote)$
+\titlenote{$titlenote$}
+$endif$
+$for(authors)$
+\addauthor$if(authors.affiliation)$[$authors.affiliation$]$endif${$authors.name$}{$authors.note$}
+$endfor$
+\date{$if(date)$$date$$else$\today$endif$}
+$if(versionnote)$
+\versionnote{$versionnote$}
+$endif$
+$if(keywords)$
+\keywords{$for(keywords)$$keywords$$sep$; $endfor$}
+$endif$
+
+\begin{document}
+
+\maketitle
+$if(abstract)$
+
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+
+$body$
+$if(bibliography)$
+
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+$endif$
+
+\end{document}

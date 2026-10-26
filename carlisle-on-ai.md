@@ -26,7 +26,9 @@ So what should this process look like---what features should it have? I suggest 
 2. *Implemented*: the researcher actually implements those decisions. 
 3. *Documented*: the researcher makes it easy to check that they actually impelemented those decisions. 
 
-[CTK: Insert an aside here. "We could imagine, for example, that a researcher comes up with a clever research design, for example, but fails to code an important variable correctly. Or perhaps they did everything correctly, but they pointed-and-clicked their way to their final estimates and left no way to check."]
+::: aside
+We could imagine, for example, that a researcher comes up with a clever research design, for example, but fails to code an important variable correctly. Or perhaps they did everything correctly, but they pointed-and-clicked their way to their final estimates and left no way to check.
+:::
 
 I've long advocated for what Healy calls "plain text social science" because tools like CSV datasets, R scripts, and LaTeX files make it easier to document your process (and thus easier to implement). As Healy notes: 
 
@@ -45,8 +47,7 @@ It is indisputable that AI models are a tool that can help *implement* our choic
 
 This is clear: *at a minimum*, we should use AI models *extensively* for error-checking.[CTK: cite P aronow's essay here.]
 
-[CTK: Add these two examples below as an aside.
-
+::: aside
 **Real examples of errors.** 
 
 *Example 1*: A paper describes a prior distribution as "N(0, 2)." From context, "2" refers to a variance. The Stan model uses `normal(0, 2)`, and Stan treats `2` as a standard deviation.  
@@ -54,8 +55,7 @@ This is clear: *at a minimum*, we should use AI models *extensively* for error-c
 *Example 2:* A paper describes an complex algorithm implemented in C++. A subtle but important difference exists between the algorithm described in the paper and the algorithm implemented by the C++ code. 
 
 While these errors are nearly impossible for a human to detect, an AI model will discover them almost always.
-
-]
+:::
 
 ## Mistakes We Can Make
 
@@ -80,11 +80,9 @@ First, we might turn over tasks to AI models that should remain deeply involved.
 
 Second, we might use AI models to quickly complete tasks that ought not be completed at all. Thus, rather than making less work, they make *more* work. It is clear that we can use agents to to lots of tasks very quickly and with many fewer errors. What matters now is that we point those agents towards *worthwhile* tasks. 
 
-[CTK: make this an aside.
-
+::: aside
 Take the example of data collection. Prior to the emergence of agents, extensive data collection was difficult, expensive, and time-consuming. The high costs made us think carefully about what we wanted and why before we went ahead. The difficulty encouraged and rewarded discernment and judgement. With AI agents, extensive data collection is easy, cheap, and can happen while you sleep. The low costs make it easy to "just go ahead" before we've put any thought into the matter. 
-
-]
+:::
 
 ## An Attitude for the Future
 
