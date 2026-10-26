@@ -1,9 +1,10 @@
 # Title-page fields. The title is the .md's `#` heading.
 # Optional: subtitle, titlenote, date (default \today), versionnote,
 # keywords (a list), abstract.
-# To cite with [@key] (-> \citep) and @key (-> \citet), add a .bib file to
-# the project folder and list it here:
-#   bibliography: references.bib
+# Cite with @key -> Author (Year) and [@key] -> (Author Year); add a page
+# with @key [8] or [@key, 8]. Each work's full reference goes in the margin
+# at its first citation. The .bib files live in the project folder.
+bibliography: references.bib
 authors:
   - name: Carlisle Rainey
     note: >-

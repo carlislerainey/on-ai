@@ -18,7 +18,7 @@ At our best, the process consists of well-documented computer code that implemen
 
 The process is *long*.^[A quick across several replication archives in political sciences suggest that a typical project uses one to six scripts and 500 to 2,500 lines of code. Some use many more scripts and many more lines of code.]
 
-The process is important.^[We might even argue that the *process* is the primary research product. Insert quote about paper being just an advertisement here.]
+The process is important.^[We might even argue that the *process* is the primary research product. "An article about computational science in a scientific publication is *not* the scholarship itself, it is merely *advertising* of the scholarship. The actual scholarship is the complete software development environment and the complete set of instructions which generated the figures" [@buckheit1995, 5].]
 
 So what should this process look like---what features should it have? I suggest three. The process should be:
 
@@ -30,9 +30,9 @@ So what should this process look like---what features should it have? I suggest 
 We could imagine, for example, that a researcher comes up with a clever research design, for example, but fails to code an important variable correctly. Or perhaps they did everything correctly, but they pointed-and-clicked their way to their final estimates and left no way to check.
 :::
 
-I've long advocated for what Healy calls "plain text social science" because tools like CSV datasets, R scripts, and LaTeX files make it easier to document your process (and thus easier to implement). As Healy notes: 
+I've long advocated for what @healy2020 calls "plain text social science" because tools like CSV datasets, R scripts, and LaTeX files make it easier to document your process (and thus easier to implement). As @healy2020 [8] notes: 
 
-> [CTK: insert the healy quote about you should use the tool that make it easy to work correctly.]
+> [S]oftware applications are not all created equal, and some make it easier than others to do the Right Thing.
 
 This leaves us with two uncontroversial claims:
 
@@ -45,7 +45,7 @@ AI models enter almost seemlessly into this framework, especially when used agen
 
 It is indisputable that AI models are a tool that can help *implement* our choices *document* those choices. They can write clear and correct R scripts. they create careful records and version-control our work.^[The can also help make principled decisions, but work in this dimmenision is more complicated, I think.]
 
-This is clear: *at a minimum*, we should use AI models *extensively* for error-checking.[CTK: cite P aronow's essay here.]
+This is clear: *at a minimum*, we should use AI models *extensively* for error-checking [@aronow2026].
 
 ::: aside
 **Real examples of errors.** 

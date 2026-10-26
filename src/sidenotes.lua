@@ -5,9 +5,14 @@
 --   :::
 --
 --   [CTK: ...]           -> \ctk{CTK: ...}, a red drafting note
+--
+--   @key, [@key]         -> \citet / \citep, plus \aside{\bibentry{key}}
+--                           at each work's first citation; a citation in a
+--                           footnote gets its aside beside the footnote mark
 
 local function latex(blocks)
-  local out = pandoc.write(pandoc.Pandoc(blocks), 'latex')
+  local out = pandoc.write(pandoc.Pandoc(blocks), 'latex',
+    pandoc.WriterOptions({ cite_method = 'natbib' }))
   return (out:gsub('%s+$', ''))
 end
 
@@ -60,6 +65,36 @@ function Inlines(inlines)
   return out
 end
 
+-- Full references in the margin: after a citation (or a footnote that holds
+-- one), an \aside with the reference for each work not yet cited.
+local cited = {}
+
+local function refnotes(el)
+  local out = pandoc.List()
+  for _, inline in ipairs(el.content) do
+    out:insert(inline)
+    if inline.t == 'Cite' or inline.t == 'Note' then
+      pandoc.Inlines({ inline }):walk({
+        Cite = function(cite)
+          for _, c in ipairs(cite.citations) do
+            if not cited[c.id] then
+              cited[c.id] = true
+              out:insert(pandoc.RawInline('latex',
+                '\\aside{\\bibentry{' .. c.id .. '}}'))
+            end
+          end
+        end,
+      })
+    end
+  end
+  el.content = out
+  return el, false  -- don't descend: footnotes are handled from here
+end
+
+local function skip_aside(div)
+  if div.classes:includes('aside') then return div, false end
+end
+
 -- The block an aside attaches to: a paragraph, or the last paragraph of
 -- the last item of a list.
 local function anchor(block)
@@ -90,5 +125,6 @@ end
 
 return {
   { Inlines = Inlines },
+  { traverse = 'topdown', Div = skip_aside, Para = refnotes, Plain = refnotes },
   { Blocks = Blocks },
 }

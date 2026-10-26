@@ -145,6 +145,7 @@
 % (Rainey 2014, 12; Ahler and Sood 2018): no comma between author and year;
 % `sort` puts multiple works in reference-list (alphabetical) order.
 \usepackage[sort]{natbib}
+\usepackage{bibentry}  % \bibentry{key}: the full reference, for margin notes
 \bibpunct[, ]{(}{)}{;}{a}{}{,}
 \bibliographystyle{apsa}
 \setlength{\bibhang}{0.35in}
@@ -343,10 +344,11 @@ $abstract$
 \end{abstract}
 $endif$
 
-$body$
 $if(bibliography)$
-
-\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+% Full references go in the margin (sidenotes.lua), not in a list at the end.
+\nobibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
 $endif$
+
+$body$
 
 \end{document}
