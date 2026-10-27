@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On AI for Quantitative Social Science</title>
+<meta name="author" content="Carlisle Rainey">
+<meta name="description" content="On AI for Quantitative Social Science, by Carlisle Rainey.">
+
+<!-- Link cards (X, Bluesky, Mastodon, LinkedIn). Image URLs must be absolute. -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.carlislerainey.com/on-ai/">
+<meta property="og:title" content="On AI for Quantitative Social Science">
+<meta property="og:description" content="On AI for Quantitative Social Science, by Carlisle Rainey.">
+<meta property="og:image" content="https://www.carlislerainey.com/on-ai/images/carlisle-on-ai-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The first page of On AI for Quantitative Social Science">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@carlislerainey">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --ink: #333333;
+    --muted: #6B6B6B;
+    --line: #E6E6E6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141414;
+      --ink: #F2F2F2;
+      --muted: #9A9A9A;
+      --line: #2A2A2A;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Source Sans 3", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(56px, 12vh, 112px) 16px 0;
+    text-align: center;
+  }
+  h1 { margin: 0; line-height: 0.95; }
+  h1 .big {
+    display: block;
+    font-weight: 900;
+    font-size: clamp(4.5rem, 18vw, 8rem);
+    letter-spacing: -0.015em;
+  }
+  h1 .small {
+    display: block;
+    font-weight: 600;
+    font-size: clamp(1.3rem, 4.6vw, 2.1rem);
+    margin-top: 0.2em;
+  }
+  .byline {
+    margin: 1.25rem 0 2.25rem;
+    font-size: 1.1rem;
+    color: var(--muted);
+  }
+  .button {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+  }
+  .button:hover { opacity: 0.85; }
+  .button:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+  .meta {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  /* A peek at page 1, fading out at the bottom: there's more to read. */
+  .preview {
+    display: block;
+    margin: clamp(48px, 9vh, 80px) auto 0;
+    max-height: 460px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-bottom: 0;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent);
+    mask-image: linear-gradient(to bottom, #000 50%, transparent);
+  }
+  .preview img { display: block; width: 100%; height: auto; }
+  footer {
+    padding: 16px 16px 48px;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+</style>
+</head>
+<body>
+<main>
+  <h1>
+    <span class="big">On AI</span>
+    <span class="small">for Quantitative Social Science</span>
+  </h1>
+  <p class="byline">Carlisle Rainey</p>
+  <a class="button" href="carlisle-on-ai.pdf">Read the PDF</a>
+  <p class="meta">4 pages</p>
+  <a class="preview" href="carlisle-on-ai.pdf" aria-label="Open the PDF">
+    <img src="images/carlisle-on-ai-preview.png" alt="The first page of the essay" width="1200" height="1024">
+  </a>
+</main>
+<footer><a href="https://www.carlislerainey.com">carlislerainey.com</a></footer>
+</body>
+</html>
