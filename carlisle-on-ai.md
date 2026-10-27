@@ -16,11 +16,9 @@ I'll focus on this *process* in this essay.
 
 At our best, the process consists of well-documented computer code that implements our principled decisions (that we carefully defend in the paper).
 
-The process is *long*.^[A quick look across several replication archives in political science suggests that a typical project uses one to six scripts and 500 to 2,500 lines of code. Some use many more scripts and many more lines of code.]
+The process is *long*. A quick look across several replication archives in political science suggests that a typical project uses one to six scripts and 500 to 2,500 lines of code. Some use many more scripts and many more lines of code.
 
-The process is *important*.
-
-We might even argue that the *process* is the primary research product. @buckheit1995 [5] write:
+The process is *important*. We might even argue that the *process* is the primary research product. @buckheit1995 [5] write:
 
 > An article about computational science in a scientific publication is *not* the scholarship itself, it is merely *advertising* of the scholarship. The actual scholarship is the complete software development environment and the complete set of instructions which generated the figures.
 

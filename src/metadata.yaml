@@ -5,6 +5,10 @@
 # with @key [8] or [@key, 8]. Each work's full reference goes in the margin
 # at its first citation. The .bib files live in the project folder.
 bibliography: references.bib
+titlenote: >-
+  *Initial draft; still very early.* This semester, I challenged my students
+  to think about the role of AI in their research. This is my sketch of the
+  promise and pitfalls.
 authors:
   - name: Carlisle Rainey
     note: >-
